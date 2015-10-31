@@ -21,6 +21,7 @@ public class PeliculesFragment extends Fragment {
 
     private List items;
     private ArrayAdapter adapter;
+    private boolean tipus;
 
     public PeliculesFragment() {
     }
@@ -41,6 +42,8 @@ public class PeliculesFragment extends Fragment {
         adapter = new ArrayAdapter<>(getActivity().getApplicationContext(),R.layout.listview_row,R.id.txtRow,items);
         ListView lvRow = (ListView) rootView.findViewById(R.id.llista);
         lvRow.setAdapter(adapter);
+        tipus = true;
+        refresh();
         return rootView;
     }
     @Override
@@ -68,7 +71,11 @@ public class PeliculesFragment extends Fragment {
     }
     public void refresh(){
         MovieApi apiClient = new MovieApi();
-        apiClient.moviesPopular(adapter,getActivity().getApplicationContext());
+        if(tipus) {
+            apiClient.moviesPopular(adapter, getActivity().getApplicationContext());
+        } else {
+            apiClient.moviesValued(adapter, getActivity().getApplicationContext());
+        }
     }
 
 }
