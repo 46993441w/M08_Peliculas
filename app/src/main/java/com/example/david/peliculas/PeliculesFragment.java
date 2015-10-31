@@ -1,6 +1,5 @@
 package com.example.david.peliculas;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,14 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link PeliculesFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link PeliculesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class PeliculesFragment extends Fragment {
 
     private List items;
@@ -69,9 +61,14 @@ public class PeliculesFragment extends Fragment {
             return true;
         }
         if (id == R.id.action_refresh) {
+            refresh();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    public void refresh(){
+        MovieApi apiClient = new MovieApi();
+        apiClient.moviesPopular(adapter,getActivity().getApplicationContext());
     }
 
 }
