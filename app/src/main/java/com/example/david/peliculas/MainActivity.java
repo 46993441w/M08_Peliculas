@@ -45,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            // fem una connecció amb el settingsActivity i pasem tota la info actual
             Intent i = new Intent(this,SettingsActivity.class);
+            // iniciem l'activity a la que em connectat
             startActivity(i);
             return true;
         }

@@ -25,6 +25,9 @@ public class PeliculesFragment extends Fragment {
     public PeliculesFragment() {
     }
 
+    /**
+     * funció que s'executa cada vegada que es mostra de nou la activitat
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -42,18 +45,18 @@ public class PeliculesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView =  inflater.inflate(R.layout.fragment_pelicules, container, false);
-        String[] data = {"hola"};
-        items = new ArrayList<>(Arrays.asList(data));
-        adapter = new ArrayAdapter<>(getActivity().getApplicationContext(),R.layout.listview_row,R.id.txtRow,items);
-        ListView lvRow = (ListView) rootView.findViewById(R.id.llista);
-        lvRow.setAdapter(adapter);
-        //refresh();
-        return rootView;
+        String[] data = {"hola"}; //array de Strings
+        items = new ArrayList<>(Arrays.asList(data)); //llista de String per al listView
+        adapter = new ArrayAdapter<>(getActivity().getApplicationContext(),R.layout.listview_row,R.id.txtRow,items); //connecta l'adaptador amb la llista
+        ListView lvRow = (ListView) rootView.findViewById(R.id.llista); // inicialitza la llista
+        lvRow.setAdapter(adapter); //connecta l'adaptador amb el listview
+        return rootView; //torna la vista
     }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-
+        // li posa al fragment un nou menú, a més, del menú de l'activity
         inflater.inflate(R.menu.pelicules_menu, menu);
     }
 
@@ -68,14 +71,20 @@ public class PeliculesFragment extends Fragment {
             return true;
         }
         if (id == R.id.action_refresh) {
+            // quan presiones refresh es recarrega
             refresh();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * funció que recarrega el listView en funció del tipus de pel·licula que s'hagi seleccionat a
+     * la preferència
+     */
     public void refresh(){
+        // es crea la clase retrofit per accedir a les dades de la api segons els nostres valors
         MovieApi apiClient = new MovieApi();
         apiClient.movies(adapter, getActivity().getApplicationContext());
     }
-
 }
