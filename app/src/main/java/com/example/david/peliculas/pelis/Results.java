@@ -255,8 +255,11 @@ public class Results implements Serializable{
         Double votos = getVote_average(); // vots de la pel·lícula
         String descripcion = getOverview(); // descripció de la pel·lícula
         String dateString = getRelease_date(); // data de la pel·lícula
-        return String.format("%s - %s - %s%n%s",
+        return String.format("%s - %s - %s%%",
+                titol, dateString, votos
+        );
+        /*return String.format("%s - %s - %s%n%s",
                 titol, votos, dateString , descripcion
-        ); // retorna un String amb el format especificat amb els tant percent
+        );*/ // retorna un String amb el format especificat amb els tant percent
     }
 }

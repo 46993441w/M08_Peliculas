@@ -45,8 +45,7 @@ public class PeliculesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView =  inflater.inflate(R.layout.fragment_pelicules, container, false);
-        String[] data = {"hola"}; //array de Strings
-        items = new ArrayList<>(Arrays.asList(data)); //llista de String per al listView
+        items = new ArrayList<>(); //llista de Results per al listView
         adapter = new MovieAdapter(getActivity().getApplicationContext(),R.layout.listview_row,items); //connecta l'adaptador amb la llista
         ListView lvRow = (ListView) rootView.findViewById(R.id.llista); // inicialitza la llista
         lvRow.setAdapter(adapter); //connecta l'adaptador amb el listview
