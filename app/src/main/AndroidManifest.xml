@@ -31,9 +31,13 @@
                 android:value="com.example.david.peliculas.MainActivity" />
         </activity>
         <activity
-            android:name=".MovieDetaill"
+            android:name=".MovieDetall"
             android:label="@string/title_activity_movie_detaill"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.david.peliculas.MainActivity" />
         </activity>
     </application>
 

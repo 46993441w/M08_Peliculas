@@ -1,5 +1,6 @@
 package com.example.david.peliculas;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,8 +9,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.example.david.peliculas.pelis.Results;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,6 +53,16 @@ public class PeliculesFragment extends Fragment {
         adapter = new MovieAdapter(getActivity().getApplicationContext(),R.layout.listview_row,items); //connecta l'adaptador amb la llista
         ListView lvRow = (ListView) rootView.findViewById(R.id.llista); // inicialitza la llista
         lvRow.setAdapter(adapter); //connecta l'adaptador amb el listview
+        lvRow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Results item = (Results) parent.getItemAtPosition(position);
+
+                Intent i = new Intent(getActivity().getApplicationContext(), MovieDetall.class);
+                i.putExtra("item", item);
+                startActivity(i);
+            }
+        });
         return rootView; //torna la vista
     }
 
