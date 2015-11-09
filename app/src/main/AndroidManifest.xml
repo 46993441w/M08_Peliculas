@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.david.peliculas" >
+
     <!-- dona permis per accedir a internet -->
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -28,6 +29,11 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.david.peliculas.MainActivity" />
+        </activity>
+        <activity
+            android:name=".MovieDetaill"
+            android:label="@string/title_activity_movie_detaill"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
 
