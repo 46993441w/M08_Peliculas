@@ -244,4 +244,18 @@ public class Results {
     public void setVote_cont(Integer vote_cont) {
         this.vote_cont = vote_cont;
     }
+
+    /**
+     * funció que torna un String amb la forma que es vol del resultat
+     * @return String
+     */
+    public String getPeliculasString() {
+        String titol = getTitle(); // titol de la pel·lícula
+        Double votos = getVote_average(); // vots de la pel·lícula
+        String descripcion = getOverview(); // descripció de la pel·lícula
+        String dateString = getRelease_date(); // data de la pel·lícula
+        return String.format("%s - %s - %s%n%s",
+                titol, votos, dateString , descripcion
+        ); // retorna un String amb el format especificat amb els tant percent
+    }
 }

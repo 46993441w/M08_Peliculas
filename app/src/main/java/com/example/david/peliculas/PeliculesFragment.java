@@ -20,7 +20,7 @@ import java.util.List;
 public class PeliculesFragment extends Fragment {
 
     private List items;
-    private ArrayAdapter adapter;
+    private MovieAdapter adapter;
 
     public PeliculesFragment() {
     }
@@ -47,7 +47,7 @@ public class PeliculesFragment extends Fragment {
         View rootView =  inflater.inflate(R.layout.fragment_pelicules, container, false);
         String[] data = {"hola"}; //array de Strings
         items = new ArrayList<>(Arrays.asList(data)); //llista de String per al listView
-        adapter = new ArrayAdapter<>(getActivity().getApplicationContext(),R.layout.listview_row,R.id.txtRow,items); //connecta l'adaptador amb la llista
+        adapter = new MovieAdapter(getActivity().getApplicationContext(),R.layout.listview_row,items); //connecta l'adaptador amb la llista
         ListView lvRow = (ListView) rootView.findViewById(R.id.llista); // inicialitza la llista
         lvRow.setAdapter(adapter); //connecta l'adaptador amb el listview
         return rootView; //torna la vista

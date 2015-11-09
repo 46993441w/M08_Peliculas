@@ -53,14 +53,14 @@ public class MovieApi {
 
     /**
      *  Mètode que obté el resultat de la connexió amb la api
-     * @param adapter   adaptador que està connectat amb el listView
+     * @param adapter   adaptador modificat que està connectat amb el listView
      * @param context   el context de la activitat que el crida
      */
-    public void movies(final ArrayAdapter<String> adapter, Context context) {
+    public void movies(final MovieAdapter adapter, Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        // torna el valor de la ppreferencia listMovies, en cas de que encara no tingui cap valor
+        // torna el valor de la preferència listMovies, en cas de que encara no tingui cap valor
         // torna per valor defecte popular
-        String tipus = preferences.getString("listMovies","popular");
+        String tipus = preferences.getString("listMovies", "popular");
         // fa la connexió amb la api amb la clau i el tipus de cerca que es vol
         Call<Peliculas> pelisCall = service.getMovie(
                 tipus, API_KEY
@@ -75,17 +75,10 @@ public class MovieApi {
             public void onResponse(Response<Peliculas> response, Retrofit retrofit) {
                 // la resposta la torna objecte, que hem creat prèviament,
                 Peliculas pelis = response.body();
-                //creem una llista per posar les pel·lícules que es mostraran al listview
-                ArrayList<String> pelisStrings = new ArrayList<>();
-                for (Results resultat : pelis.getResults()) {
-                    // torna el string desitgat per mostrar
-                    String pelisString = getPeliculasString(resultat);
-                    // afegim es string a la llista
-                    pelisStrings.add(pelisString);
-                }
+
                 // modifiquem el adaptador per a que mostri els canvis
                 adapter.clear();
-                adapter.addAll(pelisStrings);
+                adapter.addAll(pelis.getResults());
             }
 
             /**
@@ -97,15 +90,5 @@ public class MovieApi {
                 Log.e("Update movies", Arrays.toString(t.getStackTrace()));
             }
         });
-    }
-
-    private String getPeliculasString(Results resultat) {
-        String titol = resultat.getTitle(); // titol de la pel·lícula
-        Double votos = resultat.getVote_average(); // vots de la pel·lícula
-        String descripcion = resultat.getOverview(); // descripció de la pel·lícula
-        String dateString = resultat.getRelease_date(); // data de la pel·lícula
-        return String.format("%s - %s - %s%n%s",
-                titol, votos, dateString , descripcion
-        ); // retorna un String amb el format especificat amb els tant percent
     }
 }
