@@ -1,11 +1,12 @@
 package com.example.david.peliculas.pelis;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by david on 31/10/15.
  */
-public class Results {
+public class Results implements Serializable{
     private Boolean adult;
     private String backdrop_path;
     private List<Integer> genre_ids;

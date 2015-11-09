@@ -1,12 +1,13 @@
 package com.example.david.peliculas.pelis;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Classe Peliculas
  */
-public class Peliculas {
+public class Peliculas implements Serializable{
     private Integer page;
     private java.util.List<Results> results = new ArrayList<>();
     private Integer total_pages;
