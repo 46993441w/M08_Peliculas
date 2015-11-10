@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.david.peliculas.MovieDetallFragment">
+    tools:context="com.example.david.peliculas.MovieDetallFragment"
+    tools:showIn="@layout/activity_movie_detall">
 
     <TextView
         android:id="@+id/tvDetall"

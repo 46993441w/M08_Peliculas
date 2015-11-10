@@ -28,7 +28,7 @@ public class MovieDetallFragment extends Fragment {
         Results item = (Results) i.getSerializableExtra("item");
 
         TextView tvDetall = (TextView) view.findViewById(R.id.tvDetall);
-        tvDetall.setText(item.getPeliculasString());
+        tvDetall.setText(item.getPeliculasFragmentString());
 
         return view;
     }
