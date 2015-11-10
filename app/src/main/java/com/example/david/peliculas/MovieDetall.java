@@ -24,6 +24,7 @@ public class MovieDetall extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        //icone que es posa a dalt i que fa que es pugui tornar enrere
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

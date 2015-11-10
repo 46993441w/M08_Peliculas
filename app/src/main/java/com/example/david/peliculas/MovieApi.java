@@ -40,7 +40,7 @@ public class MovieApi {
 
     private final TheMoviedb service; // interface
     private final String PELICULAS_BASE_URL = "http://api.themoviedb.org"; // base per a la api
-    private final String API_KEY = "7b5e30851a9285340e78c201c4e4ab99"; //clau
+    private final String API_KEY = "4624e31346570edb5d18b1092b824632"; //clau
 
     public MovieApi(){
         // al crear la clase es connecta amb la api
