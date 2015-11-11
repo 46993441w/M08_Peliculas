@@ -12,6 +12,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="Hola" />
+        android:text="Hola"
+        android:layout_gravity="center_horizontal|top" />
+
+    <ImageView
+        android:layout_width="148dp"
+        android:layout_height="148dp"
+        android:id="@+id/ivPosterDetall"
+        android:layout_gravity="left|top" />
 
 </FrameLayout>

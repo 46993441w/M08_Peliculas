@@ -5,7 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import com.example.david.peliculas.pelis.Results;
 
@@ -43,9 +46,11 @@ public class MovieAdapter extends ArrayAdapter<Results> {
 
         // Unim el codi en les Views del Layout
         TextView tvDetail = (TextView) convertView.findViewById(R.id.txtRow);
+        ImageView ivPoster = (ImageView) convertView.findViewById(R.id.ivPoster);
 
         // Fiquem les dades dels objectes (provinents del JSON) en el layout
         tvDetail.setText(item.getPeliculasString());
+        //Picasso.with(getContext()).load(item.getPosters().getDetailed()).into(ivPoster);
 
         // Retornem la View replena per a mostrarla
         return convertView;
