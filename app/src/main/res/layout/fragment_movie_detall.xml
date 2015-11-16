@@ -5,20 +5,28 @@
     tools:context="com.example.david.peliculas.MovieDetallFragment"
     tools:showIn="@layout/activity_movie_detall">
 
-    <TextView
-        android:id="@+id/tvDetall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:text="Hola"
-        android:layout_gravity="center_horizontal|top" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="left|top">
 
-    <ImageView
-        android:layout_width="148dp"
-        android:layout_height="148dp"
-        android:id="@+id/ivPosterDetall"
-        android:layout_gravity="left|top" />
+        <ImageView
+            android:layout_width="148dp"
+            android:layout_height="148dp"
+            android:id="@+id/ivPosterDetall"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/tvDetall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="Hola"
+            style="@style/Base.TextAppearance.AppCompat.Headline" />
+
+    </LinearLayout>
 
 </FrameLayout>

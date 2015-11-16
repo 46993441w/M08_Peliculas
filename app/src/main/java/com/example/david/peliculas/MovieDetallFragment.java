@@ -6,9 +6,11 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.david.peliculas.pelis.Results;
+import com.squareup.picasso.Picasso;
 
 
 public class MovieDetallFragment extends Fragment {
@@ -28,7 +30,10 @@ public class MovieDetallFragment extends Fragment {
         Results item = (Results) i.getSerializableExtra("item");
 
         TextView tvDetall = (TextView) view.findViewById(R.id.tvDetall);
+        ImageView ivPoster = (ImageView) view.findViewById(R.id.ivPosterDetall);
+
         tvDetall.setText(item.getPeliculasFragmentString());
+        Picasso.with(getActivity().getApplicationContext()).load("http://image.tmdb.org/t/p/w500"+item.getPoster_path()).into(ivPoster);
 
         return view;
     }

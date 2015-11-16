@@ -3,10 +3,9 @@
     android:layout_height="match_parent"
     tools:context="com.example.david.peliculas.PeliculesFragment">
 
-    <ListView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/llista"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true" />
+    <GridView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/llista"
+        android:layout_gravity="left|top" />
 </FrameLayout>

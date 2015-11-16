@@ -50,7 +50,7 @@ public class MovieAdapter extends ArrayAdapter<Results> {
 
         // Fiquem les dades dels objectes (provinents del JSON) en el layout
         tvDetail.setText(item.getPeliculasString());
-        //Picasso.with(getContext()).load(item.getPosters().getDetailed()).into(ivPoster);
+        Picasso.with(getContext()).load("http://image.tmdb.org/t/p/w500"+item.getPoster_path()).into(ivPoster);
 
         // Retornem la View replena per a mostrarla
         return convertView;

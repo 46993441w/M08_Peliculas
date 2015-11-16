@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import com.example.david.peliculas.pelis.Results;
@@ -51,9 +52,9 @@ public class PeliculesFragment extends Fragment {
         View rootView =  inflater.inflate(R.layout.fragment_pelicules, container, false);
         items = new ArrayList<>(); //llista de Results per al listView
         adapter = new MovieAdapter(getActivity().getApplicationContext(),R.layout.listview_row,items); //connecta l'adaptador amb la llista
-        ListView lvRow = (ListView) rootView.findViewById(R.id.llista); // inicialitza la llista
-        lvRow.setAdapter(adapter); //connecta l'adaptador amb el listview
-        lvRow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        GridView gvRow = (GridView) rootView.findViewById(R.id.llista); // inicialitza la llista
+        gvRow.setAdapter(adapter); //connecta l'adaptador amb el listview
+        gvRow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Results item = (Results) parent.getItemAtPosition(position);
