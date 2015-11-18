@@ -22,7 +22,7 @@ public class PeliculasColumns implements BaseColumns {
 
     public static final String BACKDROP_PATH = "backdrop_path";
 
-    public static final String ID = "id";
+    public static final String IDPELICULA = "idpelicula";
 
     public static final String ORIGINAL_LANGUAGE = "original_language";
 
@@ -52,7 +52,7 @@ public class PeliculasColumns implements BaseColumns {
             _ID,
             ADULT,
             BACKDROP_PATH,
-            ID,
+            IDPELICULA,
             ORIGINAL_LANGUAGE,
             ORIGINAL_TITLE,
             OVERVIEW,
@@ -71,7 +71,7 @@ public class PeliculasColumns implements BaseColumns {
         for (String c : projection) {
             if (c.equals(ADULT) || c.contains("" + ADULT)) return true;
             if (c.equals(BACKDROP_PATH) || c.contains("" + BACKDROP_PATH)) return true;
-            if (c.equals(ID) || c.contains("" + ID)) return true;
+            if (c.equals(IDPELICULA) || c.contains("" + IDPELICULA)) return true;
             if (c.equals(ORIGINAL_LANGUAGE) || c.contains("" + ORIGINAL_LANGUAGE)) return true;
             if (c.equals(ORIGINAL_TITLE) || c.contains("" + ORIGINAL_TITLE)) return true;
             if (c.equals(OVERVIEW) || c.contains("" + OVERVIEW)) return true;

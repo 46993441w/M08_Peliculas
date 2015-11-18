@@ -9,7 +9,7 @@
       "type": "String"
     },
     {
-      "name": "id",
+      "name": "idpelicula",
       "type": "Integer"
     },
     {

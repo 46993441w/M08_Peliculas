@@ -133,43 +133,43 @@ public class PeliculasSelection extends AbstractSelection<PeliculasSelection> {
         return this;
     }
 
-    public PeliculasSelection id(Integer... value) {
-        addEquals(PeliculasColumns.ID, value);
+    public PeliculasSelection idpelicula(Integer... value) {
+        addEquals(PeliculasColumns.IDPELICULA, value);
         return this;
     }
 
-    public PeliculasSelection idNot(Integer... value) {
-        addNotEquals(PeliculasColumns.ID, value);
+    public PeliculasSelection idpeliculaNot(Integer... value) {
+        addNotEquals(PeliculasColumns.IDPELICULA, value);
         return this;
     }
 
-    public PeliculasSelection idGt(int value) {
-        addGreaterThan(PeliculasColumns.ID, value);
+    public PeliculasSelection idpeliculaGt(int value) {
+        addGreaterThan(PeliculasColumns.IDPELICULA, value);
         return this;
     }
 
-    public PeliculasSelection idGtEq(int value) {
-        addGreaterThanOrEquals(PeliculasColumns.ID, value);
+    public PeliculasSelection idpeliculaGtEq(int value) {
+        addGreaterThanOrEquals(PeliculasColumns.IDPELICULA, value);
         return this;
     }
 
-    public PeliculasSelection idLt(int value) {
-        addLessThan(PeliculasColumns.ID, value);
+    public PeliculasSelection idpeliculaLt(int value) {
+        addLessThan(PeliculasColumns.IDPELICULA, value);
         return this;
     }
 
-    public PeliculasSelection idLtEq(int value) {
-        addLessThanOrEquals(PeliculasColumns.ID, value);
+    public PeliculasSelection idpeliculaLtEq(int value) {
+        addLessThanOrEquals(PeliculasColumns.IDPELICULA, value);
         return this;
     }
 
-    public PeliculasSelection orderById(boolean desc) {
-        orderBy(PeliculasColumns.ID, desc);
+    public PeliculasSelection orderByIdpelicula(boolean desc) {
+        orderBy(PeliculasColumns.IDPELICULA, desc);
         return this;
     }
 
-    public PeliculasSelection orderById() {
-        orderBy(PeliculasColumns.ID, false);
+    public PeliculasSelection orderByIdpelicula() {
+        orderBy(PeliculasColumns.IDPELICULA, false);
         return this;
     }
 

@@ -59,13 +59,13 @@ public class PeliculasContentValues extends AbstractContentValues {
         return this;
     }
 
-    public PeliculasContentValues putId(@Nullable Integer value) {
-        mContentValues.put(PeliculasColumns.ID, value);
+    public PeliculasContentValues putIdpelicula(@Nullable Integer value) {
+        mContentValues.put(PeliculasColumns.IDPELICULA, value);
         return this;
     }
 
-    public PeliculasContentValues putIdNull() {
-        mContentValues.putNull(PeliculasColumns.ID);
+    public PeliculasContentValues putIdpeliculaNull() {
+        mContentValues.putNull(PeliculasColumns.IDPELICULA);
         return this;
     }
 

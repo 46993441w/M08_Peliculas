@@ -27,11 +27,11 @@ public interface PeliculasModel extends BaseModel {
     String getBackdropPath();
 
     /**
-     * Get the {@code id} value.
+     * Get the {@code idpelicula} value.
      * Can be {@code null}.
      */
     @Nullable
-    Integer getId();
+    Integer getIdpelicula();
 
     /**
      * Get the {@code original_language} value.

@@ -27,7 +27,7 @@ public class PeliculasSQLiteOpenHelper extends SQLiteOpenHelper {
             + PeliculasColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + PeliculasColumns.ADULT + " INTEGER, "
             + PeliculasColumns.BACKDROP_PATH + " TEXT, "
-            + PeliculasColumns.ID + " INTEGER, "
+            + PeliculasColumns.IDPELICULA + " INTEGER, "
             + PeliculasColumns.ORIGINAL_LANGUAGE + " TEXT, "
             + PeliculasColumns.ORIGINAL_TITLE + " TEXT, "
             + PeliculasColumns.OVERVIEW + " TEXT, "

@@ -47,12 +47,12 @@ public class PeliculasCursor extends AbstractCursor implements PeliculasModel {
     }
 
     /**
-     * Get the {@code id} value.
+     * Get the {@code idpelicula} value.
      * Can be {@code null}.
      */
     @Nullable
-    public Integer getId() {
-        Integer res = getIntegerOrNull(PeliculasColumns.ID);
+    public Integer getIdpelicula() {
+        Integer res = getIntegerOrNull(PeliculasColumns.IDPELICULA);
         return res;
     }
 
