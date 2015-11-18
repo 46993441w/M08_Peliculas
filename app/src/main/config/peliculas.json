@@ -1,0 +1,56 @@
+{
+  "fields": [
+    {
+      "name": "adult",
+      "type": "Boolean"
+    },
+    {
+      "name": "backdrop_path",
+      "type": "String"
+    },
+    {
+      "name": "id",
+      "type": "Integer"
+    },
+    {
+      "name": "original_language",
+      "type": "String"
+    },
+    {
+      "name": "original_title",
+      "type": "String"
+    },
+    {
+      "name": "overview",
+      "type": "String"
+    },
+    {
+      "name": "release_date",
+      "type": "String"
+    },
+    {
+      "name": "poster_path",
+      "type": "String"
+    },
+    {
+      "name": "popularity",
+      "type": "Double"
+    },
+    {
+      "name": "title",
+      "type": "String"
+    },
+    {
+      "name": "video",
+      "type": "Boolean"
+    },
+    {
+      "name": "vote_average",
+      "type": "Double"
+    },
+    {
+      "name": "vote_cont",
+      "type": "Integer"
+    }
+  ]
+}

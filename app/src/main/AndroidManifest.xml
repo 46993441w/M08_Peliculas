@@ -40,6 +40,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.david.peliculas.MainActivity" />
         </activity>
+        <!-- comentari que es genera automaticament amb el generate content provider -->
+        <provider
+            android:name="com.example.david.peliculas.provider.PeliculasProvider"
+            android:authorities="com.example.david.peliculas.provider"
+            android:exported="false" />
+
     </application>
 
 </manifest>
