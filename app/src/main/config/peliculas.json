@@ -51,6 +51,10 @@
     {
       "name": "vote_cont",
       "type": "Integer"
+    },
+    {
+      "name": "syncTime",
+      "type": "Date"
     }
   ]
 }

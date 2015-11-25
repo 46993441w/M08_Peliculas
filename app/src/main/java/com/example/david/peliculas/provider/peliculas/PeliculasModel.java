@@ -102,4 +102,11 @@ public interface PeliculasModel extends BaseModel {
      */
     @Nullable
     Integer getVoteCont();
+
+    /**
+     * Get the {@code synctime} value.
+     * Can be {@code null}.
+     */
+    @Nullable
+    Date getSynctime();
 }

@@ -547,4 +547,49 @@ public class PeliculasSelection extends AbstractSelection<PeliculasSelection> {
         orderBy(PeliculasColumns.VOTE_CONT, false);
         return this;
     }
+
+    public PeliculasSelection synctime(Date... value) {
+        addEquals(PeliculasColumns.SYNCTIME, value);
+        return this;
+    }
+
+    public PeliculasSelection synctimeNot(Date... value) {
+        addNotEquals(PeliculasColumns.SYNCTIME, value);
+        return this;
+    }
+
+    public PeliculasSelection synctime(Long... value) {
+        addEquals(PeliculasColumns.SYNCTIME, value);
+        return this;
+    }
+
+    public PeliculasSelection synctimeAfter(Date value) {
+        addGreaterThan(PeliculasColumns.SYNCTIME, value);
+        return this;
+    }
+
+    public PeliculasSelection synctimeAfterEq(Date value) {
+        addGreaterThanOrEquals(PeliculasColumns.SYNCTIME, value);
+        return this;
+    }
+
+    public PeliculasSelection synctimeBefore(Date value) {
+        addLessThan(PeliculasColumns.SYNCTIME, value);
+        return this;
+    }
+
+    public PeliculasSelection synctimeBeforeEq(Date value) {
+        addLessThanOrEquals(PeliculasColumns.SYNCTIME, value);
+        return this;
+    }
+
+    public PeliculasSelection orderBySynctime(boolean desc) {
+        orderBy(PeliculasColumns.SYNCTIME, desc);
+        return this;
+    }
+
+    public PeliculasSelection orderBySynctime() {
+        orderBy(PeliculasColumns.SYNCTIME, false);
+        return this;
+    }
 }

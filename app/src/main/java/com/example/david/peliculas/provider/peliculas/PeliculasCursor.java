@@ -155,4 +155,14 @@ public class PeliculasCursor extends AbstractCursor implements PeliculasModel {
         Integer res = getIntegerOrNull(PeliculasColumns.VOTE_CONT);
         return res;
     }
+
+    /**
+     * Get the {@code synctime} value.
+     * Can be {@code null}.
+     */
+    @Nullable
+    public Date getSynctime() {
+        Date res = getDateOrNull(PeliculasColumns.SYNCTIME);
+        return res;
+    }
 }

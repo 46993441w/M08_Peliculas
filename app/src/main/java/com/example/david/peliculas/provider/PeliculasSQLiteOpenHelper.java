@@ -37,7 +37,8 @@ public class PeliculasSQLiteOpenHelper extends SQLiteOpenHelper {
             + PeliculasColumns.TITLE + " TEXT, "
             + PeliculasColumns.VIDEO + " INTEGER, "
             + PeliculasColumns.VOTE_AVERAGE + " REAL, "
-            + PeliculasColumns.VOTE_CONT + " INTEGER "
+            + PeliculasColumns.VOTE_CONT + " INTEGER, "
+            + PeliculasColumns.SYNCTIME + " INTEGER "
             + " );";
 
     // @formatter:on

@@ -44,6 +44,8 @@ public class PeliculasColumns implements BaseColumns {
 
     public static final String VOTE_CONT = "vote_cont";
 
+    public static final String SYNCTIME = "syncTime";
+
 
     public static final String DEFAULT_ORDER = TABLE_NAME + "." +_ID;
 
@@ -62,26 +64,28 @@ public class PeliculasColumns implements BaseColumns {
             TITLE,
             VIDEO,
             VOTE_AVERAGE,
-            VOTE_CONT
+            VOTE_CONT,
+            SYNCTIME
     };
     // @formatter:on
 
     public static boolean hasColumns(String[] projection) {
         if (projection == null) return true;
         for (String c : projection) {
-            if (c.equals(ADULT) || c.contains("" + ADULT)) return true;
-            if (c.equals(BACKDROP_PATH) || c.contains("" + BACKDROP_PATH)) return true;
-            if (c.equals(IDPELICULA) || c.contains("" + IDPELICULA)) return true;
-            if (c.equals(ORIGINAL_LANGUAGE) || c.contains("" + ORIGINAL_LANGUAGE)) return true;
-            if (c.equals(ORIGINAL_TITLE) || c.contains("" + ORIGINAL_TITLE)) return true;
-            if (c.equals(OVERVIEW) || c.contains("" + OVERVIEW)) return true;
-            if (c.equals(RELEASE_DATE) || c.contains("" + RELEASE_DATE)) return true;
-            if (c.equals(POSTER_PATH) || c.contains("" + POSTER_PATH)) return true;
-            if (c.equals(POPULARITY) || c.contains("" + POPULARITY)) return true;
-            if (c.equals(TITLE) || c.contains("" + TITLE)) return true;
-            if (c.equals(VIDEO) || c.contains("" + VIDEO)) return true;
-            if (c.equals(VOTE_AVERAGE) || c.contains("" + VOTE_AVERAGE)) return true;
-            if (c.equals(VOTE_CONT) || c.contains("" + VOTE_CONT)) return true;
+            if (c.equals(ADULT) || c.contains("." + ADULT)) return true;
+            if (c.equals(BACKDROP_PATH) || c.contains("." + BACKDROP_PATH)) return true;
+            if (c.equals(IDPELICULA) || c.contains("." + IDPELICULA)) return true;
+            if (c.equals(ORIGINAL_LANGUAGE) || c.contains("." + ORIGINAL_LANGUAGE)) return true;
+            if (c.equals(ORIGINAL_TITLE) || c.contains("." + ORIGINAL_TITLE)) return true;
+            if (c.equals(OVERVIEW) || c.contains("." + OVERVIEW)) return true;
+            if (c.equals(RELEASE_DATE) || c.contains("." + RELEASE_DATE)) return true;
+            if (c.equals(POSTER_PATH) || c.contains("." + POSTER_PATH)) return true;
+            if (c.equals(POPULARITY) || c.contains("." + POPULARITY)) return true;
+            if (c.equals(TITLE) || c.contains("." + TITLE)) return true;
+            if (c.equals(VIDEO) || c.contains("." + VIDEO)) return true;
+            if (c.equals(VOTE_AVERAGE) || c.contains("." + VOTE_AVERAGE)) return true;
+            if (c.equals(VOTE_CONT) || c.contains("." + VOTE_CONT)) return true;
+            if (c.equals(SYNCTIME) || c.contains("." + SYNCTIME)) return true;
         }
         return false;
     }

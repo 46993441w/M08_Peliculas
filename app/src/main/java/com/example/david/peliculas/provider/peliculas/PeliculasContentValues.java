@@ -168,4 +168,19 @@ public class PeliculasContentValues extends AbstractContentValues {
         mContentValues.putNull(PeliculasColumns.VOTE_CONT);
         return this;
     }
+
+    public PeliculasContentValues putSynctime(@Nullable Date value) {
+        mContentValues.put(PeliculasColumns.SYNCTIME, value == null ? null : value.getTime());
+        return this;
+    }
+
+    public PeliculasContentValues putSynctimeNull() {
+        mContentValues.putNull(PeliculasColumns.SYNCTIME);
+        return this;
+    }
+
+    public PeliculasContentValues putSynctime(@Nullable Long value) {
+        mContentValues.put(PeliculasColumns.SYNCTIME, value);
+        return this;
+    }
 }

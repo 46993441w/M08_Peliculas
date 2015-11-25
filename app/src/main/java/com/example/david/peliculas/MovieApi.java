@@ -12,6 +12,7 @@ import com.example.david.peliculas.pelis.Peliculas;
 import com.example.david.peliculas.pelis.Results;
 import com.example.david.peliculas.provider.peliculas.PeliculasColumns;
 import com.example.david.peliculas.provider.peliculas.PeliculasContentValues;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,7 +59,6 @@ public class MovieApi {
 
     /**
      *  Mètode que obté el resultat de la connexió amb la api
-     * @param adapter   adaptador modificat que està connectat amb el listView
      * @param context   el context de la activitat que el crida
      */
     public void movies(final Context context) {
@@ -81,6 +81,7 @@ public class MovieApi {
                 // la resposta la torna objecte, que hem creat prèviament,
                 Peliculas pelis = response.body();
                 List<Results> results = pelis.getResults();
+                long syncTime = System.currentTimeMillis();
                 ArrayList<ContentValues> valuesList = new ArrayList<>();
                 for(int i = 0; i < results.size(); i++) {
                     Results result = results.get(i);
@@ -98,13 +99,20 @@ public class MovieApi {
                     values.putPopularity(result.getPopularity());
                     values.putPosterPath(result.getPoster_path());
                     values.putReleaseDate(result.getRelease_date());
+                    values.putSynctime(syncTime);
 
                     // modifiquem el adaptador per a que mostri els canvis
                     context.getContentResolver().insert(
                             PeliculasColumns.CONTENT_URI,
                             values.values()
                     );
+
+                    Picasso.with(context).load(result.getPoster_path()).fetch();
                 }
+                context.getContentResolver().delete(
+                        PeliculasColumns.CONTENT_URI,
+                        PeliculasColumns.SYNCTIME + " < ?",
+                        new String[]{Long.toString(syncTime)});
                 /*context.getContentResolver().bulkInsert(
                         PeliculasColumns.CONTENT_URI,
                         valuesList.toArray(new ContentValues[valuesList.size()])
