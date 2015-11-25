@@ -1,16 +1,21 @@
 package com.example.david.peliculas;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.SimpleCursorAdapter;
 
 import com.example.david.peliculas.pelis.Peliculas;
 import com.example.david.peliculas.pelis.Results;
+import com.example.david.peliculas.provider.peliculas.PeliculasColumns;
+import com.example.david.peliculas.provider.peliculas.PeliculasContentValues;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import retrofit.Callback;
 import retrofit.Response;
@@ -56,7 +61,7 @@ public class MovieApi {
      * @param adapter   adaptador modificat que està connectat amb el listView
      * @param context   el context de la activitat que el crida
      */
-    public void movies(final MovieAdapter adapter, Context context) {
+    public void movies(final Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         // torna el valor de la preferència listMovies, en cas de que encara no tingui cap valor
         // torna per valor defecte popular
@@ -75,10 +80,35 @@ public class MovieApi {
             public void onResponse(Response<Peliculas> response, Retrofit retrofit) {
                 // la resposta la torna objecte, que hem creat prèviament,
                 Peliculas pelis = response.body();
+                List<Results> results = pelis.getResults();
+                ArrayList<ContentValues> valuesList = new ArrayList<>();
+                for(int i = 0; i < results.size(); i++) {
+                    Results result = results.get(i);
+                    PeliculasContentValues values = new PeliculasContentValues();
+                    values.putTitle(result.getTitle());
+                    values.putAdult(result.getAdult());
+                    values.putBackdropPath(result.getBackdrop_path());
+                    values.putVoteAverage(result.getVote_average());
+                    values.putVoteCont(result.getVote_cont());
+                    values.putVideo(result.getVideo());
+                    values.putIdpelicula(result.getId());
+                    values.putOriginalLanguage(result.getOriginal_language());
+                    values.putOriginalTitle(result.getOriginal_title());
+                    values.putOverview(result.getOverview());
+                    values.putPopularity(result.getPopularity());
+                    values.putPosterPath(result.getPoster_path());
+                    values.putReleaseDate(result.getRelease_date());
 
-                // modifiquem el adaptador per a que mostri els canvis
-                adapter.clear();
-                adapter.addAll(pelis.getResults());
+                    // modifiquem el adaptador per a que mostri els canvis
+                    context.getContentResolver().insert(
+                            PeliculasColumns.CONTENT_URI,
+                            values.values()
+                    );
+                }
+                /*context.getContentResolver().bulkInsert(
+                        PeliculasColumns.CONTENT_URI,
+                        valuesList.toArray(new ContentValues[valuesList.size()])
+                );*/
             }
 
             /**

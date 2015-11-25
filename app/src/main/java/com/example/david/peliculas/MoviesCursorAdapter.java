@@ -5,53 +5,42 @@ import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import com.example.david.peliculas.pelis.Results;
+import com.example.david.peliculas.provider.peliculas.PeliculasCursor;
 
-/**
- * Created by alumne on 09/11/15.
- */
-public class MovieAdapter extends ArrayAdapter<Results> {
-    /**
-     * Constructor de la classe adapter
-     * @param context
-     * @param resource
-     * @param objects
-     */
-    public MovieAdapter(Context context, int resource, java.util.List<Results> objects) {
-        super(context, resource, objects);
+public class MoviesCursorAdapter extends SimpleCursorAdapter {
+
+    private final Context context;
+
+    public MoviesCursorAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
+        super(context, layout, c, from, to, flags);
+        this.context = context;
     }
 
-    /**
-     * funció que mostra per pantalla els elements
-     * @param position
-     * @param convertView
-     * @param parent
-     * @return
-     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Obtenim l'objecte en la posició corresponent
-        Results item = (Results) getItem(position);
-
+        Cursor cursor = getCursor();
+        PeliculasCursor peliculesCursor = new PeliculasCursor(cursor);
+        peliculesCursor.moveToPosition(position);
         // Mirem a veure si la View s'està reusant, si no es així "inflem" la View
+
         if (convertView == null) {
-            LayoutInflater inflater = LayoutInflater.from(convertView.getContext());
+            LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(R.layout.listview_row, parent, false);
         }
 
         // Unim el codi en les Views del Layout
         TextView tvDetail = (TextView) convertView.findViewById(R.id.txtRow);
         ImageView ivPoster = (ImageView) convertView.findViewById(R.id.ivPoster);
-
         // Fiquem les dades dels objectes (provinents del JSON) en el layout
-        tvDetail.setText(item.getPeliculasString());
-        Picasso.with(convertView.getContext()).load("http://image.tmdb.org/t/p/w500"+item.getPoster_path()).into(ivPoster);
+        tvDetail.setText(peliculesCursor.getTitle());
+        Picasso.with(context).load(peliculesCursor.getPosterPath()).fit().into(ivPoster);
 
         // Retornem la View replena per a mostrarla
         return convertView;

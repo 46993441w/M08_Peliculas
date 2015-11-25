@@ -45,7 +45,7 @@ public class PeliculasColumns implements BaseColumns {
     public static final String VOTE_CONT = "vote_cont";
 
 
-    public static final String DEFAULT_ORDER = TABLE_NAME + "" +_ID;
+    public static final String DEFAULT_ORDER = TABLE_NAME + "." +_ID;
 
     // @formatter:off
     public static final String[] ALL_COLUMNS = new String[] {

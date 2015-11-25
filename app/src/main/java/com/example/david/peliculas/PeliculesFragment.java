@@ -1,8 +1,14 @@
 package com.example.david.peliculas;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,33 +16,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
-import com.example.david.peliculas.pelis.Results;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import com.example.david.peliculas.provider.peliculas.PeliculasColumns;
 
 
 
-public class PeliculesFragment extends Fragment {
+public class PeliculesFragment extends Fragment implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor>{
 
-    private List items;
-    private MovieAdapter adapter;
+    //private MovieAdapter adapter;
+    private MoviesCursorAdapter adapter;
+    private SwipeRefreshLayout srlRefresh;
 
     public PeliculesFragment() {
-    }
-
-    /**
-     * funció que s'executa cada vegada que es mostra de nou la activitat
-     */
-    @Override
-    public void onStart() {
-        super.onStart();
-        refresh();
     }
 
     @Override
@@ -44,26 +37,50 @@ public class PeliculesFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
-
+/*
+    @Override
+    public void onStart() {
+        super.onStart();
+        refresh();
+    }
+*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView =  inflater.inflate(R.layout.fragment_pelicules, container, false);
-        items = new ArrayList<>(); //llista de Results per al listView
-        adapter = new MovieAdapter(getActivity().getApplicationContext(),R.layout.listview_row,items); //connecta l'adaptador amb la llista
+
         GridView gvRow = (GridView) rootView.findViewById(R.id.llista); // inicialitza la llista
-        gvRow.setAdapter(adapter); //connecta l'adaptador amb el listview
+
+        adapter = new MoviesCursorAdapter(
+                getActivity().getApplicationContext(),
+                R.layout.listview_row,
+                null,
+                new String[] { PeliculasColumns.IDPELICULA },
+                new int[] { R.id.txtRow },
+                0);
+        //Inicialitzem el Loader
+        getLoaderManager().initLoader(0, null, this);
+
+        gvRow.setAdapter(adapter); //connecta l'adaptador amb el GridView
+
         gvRow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Results item = (Results) parent.getItemAtPosition(position);
-
                 Intent i = new Intent(getActivity().getApplicationContext(), MovieDetall.class);
-                i.putExtra("item", item);
+                i.putExtra("pelicula_id", id);
                 startActivity(i);
             }
         });
+
+        /*srlRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.srlRefresh);
+        srlRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+            }
+        });*/
+
         return rootView; //torna la vista
     }
 
@@ -99,6 +116,26 @@ public class PeliculesFragment extends Fragment {
     public void refresh(){
         // es crea la clase retrofit per accedir a les dades de la api segons els nostres valors
         MovieApi apiClient = new MovieApi();
-        apiClient.movies(adapter, getActivity().getApplicationContext());
+        apiClient.movies(getActivity().getApplicationContext());
+    }
+
+    @Override
+    public android.support.v4.content.Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(getContext(),
+                PeliculasColumns.CONTENT_URI,
+                null, // todas las columnas
+                null, // where
+                null, //
+                null); // orden);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        adapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        adapter.swapCursor(null);
     }
 }
