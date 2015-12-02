@@ -59,12 +59,20 @@ public class MovieApi {
 
     /**
      *  Mètode que obté el resultat de la connexió amb la api
+     */
+    public void update() {
+
+        UpdateMoviesTask updateMovies = new UpdateMoviesTask();
+        updateMovies.execute();
+    }
+
+    /**
+     *  Mètode que obté el resultat de la connexió amb la api
      * @param tipus   el tipus de llista que es vol mostrar
      */
     public void movies(String tipus) {
 
-        UpdateMoviesTask updateMovies = new UpdateMoviesTask();
-        updateMovies.execute(tipus);
+
     }
 
     private void deleteOldMovies(long syncTime) {
@@ -121,15 +129,21 @@ public class MovieApi {
 
         @Override
         protected Object doInBackground(Object[] params) {
-            String tipus = (String) params[0];
+            String popular = "popular";
+            String valor = "top_rated";
 
             // fa la connexió amb la api amb la clau i el tipus de cerca que es vol
             Call<Peliculas> pelisCall = service.getMovie(
-                    tipus, API_KEY
+                    popular, API_KEY
             );
             long syncTime = System.currentTimeMillis();
 
-            processCall(pelisCall, tipus, syncTime);
+            processCall(pelisCall, popular, syncTime);
+
+            pelisCall = service.getMovie(
+                    valor, API_KEY
+            );
+            processCall(pelisCall, valor, syncTime);
 
             deleteOldMovies(syncTime);
 

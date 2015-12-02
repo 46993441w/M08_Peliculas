@@ -85,27 +85,18 @@ public class PeliculesFragment extends Fragment implements android.support.v4.ap
         if (id == R.id.action_settings) {
             return true;
         }
-        if (id == R.id.action_refresh) {
-            // quan presiones refresh es recarrega
-            refresh();
-            return true;
-        }
         if (id == R.id.action_update) {
             // quan presiones refresh es recarrega
-            refresh();
+            update();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * funció que recarrega el listView en funció del tipus de pel·licula que s'hagi seleccionat a
-     * la preferència
-     */
-    public void refresh(){
+    private void update() {
         // es crea la clase retrofit per accedir a les dades de la api segons els nostres valors
         MovieApi apiClient = new MovieApi(getContext());
-        apiClient.movies(tipusConsulta);
+        apiClient.update();
     }
 
     @Override
@@ -118,8 +109,8 @@ public class PeliculesFragment extends Fragment implements android.support.v4.ap
         return new CursorLoader(getContext(),
                 PeliculasColumns.CONTENT_URI,
                 null,
-                null,//PeliculasColumns.MOVIESLIST + "= ? ",
-                null,//new String[]{tipusConsulta},
+                PeliculasColumns.MOVIESLIST + "= ? ",
+                new String[]{tipusConsulta},
                 null);
     }
 
