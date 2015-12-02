@@ -2,11 +2,8 @@ package com.example.david.peliculas;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.SimpleCursorAdapter;
 
 import com.example.david.peliculas.pelis.Peliculas;
 import com.example.david.peliculas.pelis.Results;
@@ -14,6 +11,7 @@ import com.example.david.peliculas.provider.peliculas.PeliculasColumns;
 import com.example.david.peliculas.provider.peliculas.PeliculasContentValues;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -47,45 +45,48 @@ public class MovieApi {
     private final TheMoviedb service; // interface
     private final String PELICULAS_BASE_URL = "http://api.themoviedb.org"; // base per a la api
     private final String API_KEY = "4624e31346570edb5d18b1092b824632"; //clau
+    private final Context context;
 
-    public MovieApi(){
+    public MovieApi(Context context){
         // al crear la clase es connecta amb la api
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(PELICULAS_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         service = retrofit.create(TheMoviedb.class);
+        this.context = context;
     }
 
     /**
      *  Mètode que obté el resultat de la connexió amb la api
-     * @param context   el context de la activitat que el crida
+     * @param tipus   el tipus de llista que es vol mostrar
      */
-    public void movies(final Context context) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        // torna el valor de la preferència listMovies, en cas de que encara no tingui cap valor
-        // torna per valor defecte popular
-        String tipus = preferences.getString("listMovies", "popular");
-        // fa la connexió amb la api amb la clau i el tipus de cerca que es vol
-        Call<Peliculas> pelisCall = service.getMovie(
-                tipus, API_KEY
+    public void movies(String tipus) {
+
+        UpdateMoviesTask updateMovies = new UpdateMoviesTask();
+        updateMovies.execute(tipus);
+    }
+
+    private void deleteOldMovies(long syncTime) {
+        context.getContentResolver().delete(
+                PeliculasColumns.CONTENT_URI,
+                PeliculasColumns.SYNCTIME + " < ?",
+                new String[]{Long.toString(syncTime)}
         );
-        pelisCall.enqueue(new Callback<Peliculas>() {
-            /**
-             * Mètode quant tot ha anat bé
-             * @param response    La resposta que rep de la connexió
-             * @param retrofit    El retrofit amb el que es connecta
-             */
-            @Override
-            public void onResponse(Response<Peliculas> response, Retrofit retrofit) {
+    }
+
+    public void processCall(Call<Peliculas> pelisCall,final String movieList, final long syncTime) {
+        try {
+            Response<Peliculas> response = pelisCall.execute();
+            if (response.isSuccess()) {
                 // la resposta la torna objecte, que hem creat prèviament,
                 Peliculas pelis = response.body();
-                List<Results> results = pelis.getResults();
-                long syncTime = System.currentTimeMillis();
-                ArrayList<ContentValues> valuesList = new ArrayList<>();
-                for(int i = 0; i < results.size(); i++) {
-                    Results result = results.get(i);
+
+                ContentValues[] bulkToInsert;
+                List<ContentValues> mValueList = new ArrayList<>();
+                for (Results result : pelis.getResults()) {
                     PeliculasContentValues values = new PeliculasContentValues();
+
                     values.putTitle(result.getTitle());
                     values.putAdult(result.getAdult());
                     values.putBackdropPath(result.getBackdrop_path());
@@ -100,33 +101,39 @@ public class MovieApi {
                     values.putPosterPath(result.getPoster_path());
                     values.putReleaseDate(result.getRelease_date());
                     values.putSynctime(syncTime);
-
-                    // modifiquem el adaptador per a que mostri els canvis
-                    context.getContentResolver().insert(
-                            PeliculasColumns.CONTENT_URI,
-                            values.values()
-                    );
+                    values.putMovieslist(movieList);
 
                     Picasso.with(context).load(result.getPoster_path()).fetch();
+                    mValueList.add(values.values());
                 }
-                context.getContentResolver().delete(
-                        PeliculasColumns.CONTENT_URI,
-                        PeliculasColumns.SYNCTIME + " < ?",
-                        new String[]{Long.toString(syncTime)});
-                /*context.getContentResolver().bulkInsert(
-                        PeliculasColumns.CONTENT_URI,
-                        valuesList.toArray(new ContentValues[valuesList.size()])
-                );*/
+                bulkToInsert = new ContentValues[mValueList.size()];
+                mValueList.toArray(bulkToInsert);
+                context.getContentResolver().bulkInsert(PeliculasColumns.CONTENT_URI, bulkToInsert);
+            } else {
+                Log.e("Update movies", response.errorBody().toString());
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-            /**
-             * Mètode quant alguna cosa ha sortit malament
-             * @param t
-             */
-            @Override
-            public void onFailure(Throwable t) {
-                Log.e("Update movies", Arrays.toString(t.getStackTrace()));
-            }
-        });
+    class UpdateMoviesTask extends AsyncTask {
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            String tipus = (String) params[0];
+
+            // fa la connexió amb la api amb la clau i el tipus de cerca que es vol
+            Call<Peliculas> pelisCall = service.getMovie(
+                    tipus, API_KEY
+            );
+            long syncTime = System.currentTimeMillis();
+
+            processCall(pelisCall, tipus, syncTime);
+
+            deleteOldMovies(syncTime);
+
+            return null;
+        }
     }
 }
