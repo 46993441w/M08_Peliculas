@@ -16,7 +16,7 @@ public class PeliculasSQLiteOpenHelper extends SQLiteOpenHelper {
     private static final String TAG = PeliculasSQLiteOpenHelper.class.getSimpleName();
 
     public static final String DATABASE_FILE_NAME = "peliculas.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static PeliculasSQLiteOpenHelper sInstance;
     private final Context mContext;
     private final PeliculasSQLiteOpenHelperCallbacks mOpenHelperCallbacks;
@@ -38,7 +38,8 @@ public class PeliculasSQLiteOpenHelper extends SQLiteOpenHelper {
             + PeliculasColumns.VIDEO + " INTEGER, "
             + PeliculasColumns.VOTE_AVERAGE + " REAL, "
             + PeliculasColumns.VOTE_CONT + " INTEGER, "
-            + PeliculasColumns.SYNCTIME + " INTEGER "
+            + PeliculasColumns.SYNCTIME + " INTEGER, "
+            + PeliculasColumns.MOVIESLIST + " TEXT "
             + " );";
 
     // @formatter:on

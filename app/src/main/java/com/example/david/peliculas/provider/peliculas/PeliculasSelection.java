@@ -592,4 +592,44 @@ public class PeliculasSelection extends AbstractSelection<PeliculasSelection> {
         orderBy(PeliculasColumns.SYNCTIME, false);
         return this;
     }
+
+    public PeliculasSelection movieslist(String... value) {
+        addEquals(PeliculasColumns.MOVIESLIST, value);
+        return this;
+    }
+
+    public PeliculasSelection movieslistNot(String... value) {
+        addNotEquals(PeliculasColumns.MOVIESLIST, value);
+        return this;
+    }
+
+    public PeliculasSelection movieslistLike(String... value) {
+        addLike(PeliculasColumns.MOVIESLIST, value);
+        return this;
+    }
+
+    public PeliculasSelection movieslistContains(String... value) {
+        addContains(PeliculasColumns.MOVIESLIST, value);
+        return this;
+    }
+
+    public PeliculasSelection movieslistStartsWith(String... value) {
+        addStartsWith(PeliculasColumns.MOVIESLIST, value);
+        return this;
+    }
+
+    public PeliculasSelection movieslistEndsWith(String... value) {
+        addEndsWith(PeliculasColumns.MOVIESLIST, value);
+        return this;
+    }
+
+    public PeliculasSelection orderByMovieslist(boolean desc) {
+        orderBy(PeliculasColumns.MOVIESLIST, desc);
+        return this;
+    }
+
+    public PeliculasSelection orderByMovieslist() {
+        orderBy(PeliculasColumns.MOVIESLIST, false);
+        return this;
+    }
 }

@@ -27,6 +27,20 @@
             android:text="Hola"
             style="@style/Base.TextAppearance.AppCompat.Headline" />
 
+        <ScrollView
+            android:layout_width="234dp"
+            android:layout_height="462dp"
+            android:id="@+id/scrollView">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Large Text"
+                android:id="@+id/tvDescripcio"
+                android:layout_gravity="center_vertical" />
+        </ScrollView>
+
     </LinearLayout>
 
 </FrameLayout>

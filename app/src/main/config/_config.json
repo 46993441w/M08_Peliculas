@@ -7,7 +7,7 @@
   "sqliteOpenHelperClassName": "PeliculasSQLiteOpenHelper",
   "sqliteOpenHelperCallbacksClassName": "PeliculasSQLiteOpenHelperCallbacks",
   "databaseFileName": "peliculas.db",
-  "databaseVersion": 1,
+  "databaseVersion": 2,
   "enableForeignKeys": true,
   "useAnnotations": true
 }

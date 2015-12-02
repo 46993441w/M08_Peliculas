@@ -165,4 +165,14 @@ public class PeliculasCursor extends AbstractCursor implements PeliculasModel {
         Date res = getDateOrNull(PeliculasColumns.SYNCTIME);
         return res;
     }
+
+    /**
+     * Get the {@code movieslist} value.
+     * Can be {@code null}.
+     */
+    @Nullable
+    public String getMovieslist() {
+        String res = getStringOrNull(PeliculasColumns.MOVIESLIST);
+        return res;
+    }
 }

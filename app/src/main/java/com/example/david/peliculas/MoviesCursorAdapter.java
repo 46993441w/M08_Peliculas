@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
@@ -38,9 +39,10 @@ public class MoviesCursorAdapter extends SimpleCursorAdapter {
         // Unim el codi en les Views del Layout
         TextView tvDetail = (TextView) convertView.findViewById(R.id.txtRow);
         ImageView ivPoster = (ImageView) convertView.findViewById(R.id.ivPoster);
+
         // Fiquem les dades dels objectes (provinents del JSON) en el layout
         tvDetail.setText(peliculesCursor.getTitle());
-        Picasso.with(context).load(peliculesCursor.getPosterPath()).fit().into(ivPoster);
+        Picasso.with(context).load("http://image.tmdb.org/t/p/w500"+peliculesCursor.getPosterPath()).into(ivPoster);
 
         // Retornem la View replena per a mostrarla
         return convertView;

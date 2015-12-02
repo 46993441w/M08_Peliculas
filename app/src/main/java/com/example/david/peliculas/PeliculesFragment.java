@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.SimpleCursorAdapter;
 
 import com.example.david.peliculas.provider.peliculas.PeliculasColumns;
 
@@ -25,9 +24,8 @@ import com.example.david.peliculas.provider.peliculas.PeliculasColumns;
 
 public class PeliculesFragment extends Fragment implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor>{
 
-    //private MovieAdapter adapter;
     private MoviesCursorAdapter adapter;
-    private SwipeRefreshLayout srlRefresh;
+    private String tipusConsulta = "popular";
 
     public PeliculesFragment() {
     }
@@ -37,13 +35,7 @@ public class PeliculesFragment extends Fragment implements android.support.v4.ap
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
-/*
-    @Override
-    public void onStart() {
-        super.onStart();
-        refresh();
-    }
-*/
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,7 +45,7 @@ public class PeliculesFragment extends Fragment implements android.support.v4.ap
         GridView gvRow = (GridView) rootView.findViewById(R.id.llista); // inicialitza la llista
 
         adapter = new MoviesCursorAdapter(
-                getActivity().getApplicationContext(),
+                getContext(),
                 R.layout.listview_row,
                 null,
                 new String[] { PeliculasColumns.IDPELICULA },
@@ -67,19 +59,11 @@ public class PeliculesFragment extends Fragment implements android.support.v4.ap
         gvRow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(getActivity().getApplicationContext(), MovieDetall.class);
+                Intent i = new Intent(getContext(), MovieDetall.class);
                 i.putExtra("pelicula_id", id);
                 startActivity(i);
             }
         });
-
-        /*srlRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.srlRefresh);
-        srlRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refresh();
-            }
-        });*/
 
         return rootView; //torna la vista
     }
@@ -106,6 +90,11 @@ public class PeliculesFragment extends Fragment implements android.support.v4.ap
             refresh();
             return true;
         }
+        if (id == R.id.action_update) {
+            // quan presiones refresh es recarrega
+            refresh();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -115,18 +104,23 @@ public class PeliculesFragment extends Fragment implements android.support.v4.ap
      */
     public void refresh(){
         // es crea la clase retrofit per accedir a les dades de la api segons els nostres valors
-        MovieApi apiClient = new MovieApi();
-        apiClient.movies(getActivity().getApplicationContext());
+        MovieApi apiClient = new MovieApi(getContext());
+        apiClient.movies(tipusConsulta);
     }
 
     @Override
     public android.support.v4.content.Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        // torna el valor de la preferència listMovies, en cas de que encara no tingui cap valor
+        // torna per valor defecte popular
+        tipusConsulta = preferences.getString("listMovies", "popular");
+
         return new CursorLoader(getContext(),
                 PeliculasColumns.CONTENT_URI,
-                null, // todas las columnas
-                null, // where
-                null, //
-                null); // orden);
+                null,
+                null,//PeliculasColumns.MOVIESLIST + "= ? ",
+                null,//new String[]{tipusConsulta},
+                null);
     }
 
     @Override

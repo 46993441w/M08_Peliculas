@@ -183,4 +183,14 @@ public class PeliculasContentValues extends AbstractContentValues {
         mContentValues.put(PeliculasColumns.SYNCTIME, value);
         return this;
     }
+
+    public PeliculasContentValues putMovieslist(@Nullable String value) {
+        mContentValues.put(PeliculasColumns.MOVIESLIST, value);
+        return this;
+    }
+
+    public PeliculasContentValues putMovieslistNull() {
+        mContentValues.putNull(PeliculasColumns.MOVIESLIST);
+        return this;
+    }
 }

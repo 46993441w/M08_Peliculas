@@ -109,4 +109,11 @@ public interface PeliculasModel extends BaseModel {
      */
     @Nullable
     Date getSynctime();
+
+    /**
+     * Get the {@code movieslist} value.
+     * Can be {@code null}.
+     */
+    @Nullable
+    String getMovieslist();
 }

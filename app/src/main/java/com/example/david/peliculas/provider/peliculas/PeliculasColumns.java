@@ -46,6 +46,8 @@ public class PeliculasColumns implements BaseColumns {
 
     public static final String SYNCTIME = "syncTime";
 
+    public static final String MOVIESLIST = "moviesList";
+
 
     public static final String DEFAULT_ORDER = TABLE_NAME + "." +_ID;
 
@@ -65,7 +67,8 @@ public class PeliculasColumns implements BaseColumns {
             VIDEO,
             VOTE_AVERAGE,
             VOTE_CONT,
-            SYNCTIME
+            SYNCTIME,
+            MOVIESLIST
     };
     // @formatter:on
 
@@ -86,6 +89,7 @@ public class PeliculasColumns implements BaseColumns {
             if (c.equals(VOTE_AVERAGE) || c.contains("." + VOTE_AVERAGE)) return true;
             if (c.equals(VOTE_CONT) || c.contains("." + VOTE_CONT)) return true;
             if (c.equals(SYNCTIME) || c.contains("." + SYNCTIME)) return true;
+            if (c.equals(MOVIESLIST) || c.contains("." + MOVIESLIST)) return true;
         }
         return false;
     }
